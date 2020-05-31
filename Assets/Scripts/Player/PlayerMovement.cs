@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Transform shoulder;
     public bool mainTurretReady;
     public bool _playerIsAlive;
+    private Animator _anim;
 
     // Start is called before the first frame update
     void Awake()
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
         shoulder = this.transform;
         mainTurretReady = true;
         PlayerHealth.playerDied += PlayerIsDead;
+        _anim = GetComponent<Animator>();
     }
 
     private void OnDestroy()
@@ -86,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
     {
         mainTurretReady = false;
         Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+        _anim.SetTrigger("Shoot");
         yield return new WaitForSeconds(MainFireRate);
         mainTurretReady = true;
     }

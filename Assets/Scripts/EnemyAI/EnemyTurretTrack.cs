@@ -16,6 +16,8 @@ public class EnemyTurretTrack : MonoBehaviour
 
     public GameObject bulletSpawn, bulletPrefab;
 
+    public Animator _anim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class EnemyTurretTrack : MonoBehaviour
 
         StartCoroutine(TrackPlayer());
         StartCoroutine(FireAtPlayer());
+
     }
 
     // Update is called once per frame
@@ -86,6 +89,7 @@ public class EnemyTurretTrack : MonoBehaviour
             while (playerInSights)
             {
                 Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+                _anim.SetTrigger("Shoot");
                 yield return new WaitForSeconds(fireRate);
             }
             yield return new WaitForSeconds(0.1f);
